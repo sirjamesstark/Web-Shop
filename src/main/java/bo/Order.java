@@ -1,28 +1,27 @@
 package bo;
 
-import java.util.Vector;
+import db.OrderDB;
+
+import java.util.Collection;
 
 public class Order {
-    int orderID;
-    private final User user;
-    private Vector<Product> products;
+    private Product product;
+    private int quantity;
 
-    public Order(User user, Vector<Product> products) {
-        this.user = user;
-        this.products = products;
+    public static Collection<Order> searchOrders(int userID) {
+        return OrderDB.searchOrders(userID);
     }
 
-    public Order(int orderID, User user, Vector<Product> products) {
-        this.orderID = orderID;
-        this.user = user;
-        this.products = products;
+    protected Order(Product product, int quantity) {
+        this.product = product;
+        this.quantity = quantity;
     }
 
-    public User getUser() {
-        return user;
+    public Product getProduct() {
+        return product;
     }
 
-    public Vector<Product> getProducts() {
-        return products;
+    public int getQuantity() {
+        return quantity;
     }
 }

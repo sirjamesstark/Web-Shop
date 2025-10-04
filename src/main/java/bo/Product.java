@@ -1,8 +1,16 @@
 package bo;
 
+import db.ProductDB;
+
+import java.util.Collection;
+
 public class Product {
     private String name;
     private int productId, price;
+
+    public static Collection searchProducts() {
+        return ProductDB.searchProducts();
+    }
 
     public Product(String name, int price) {
         this.name = name;

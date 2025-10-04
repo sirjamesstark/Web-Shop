@@ -7,25 +7,20 @@ import java.sql.Statement;
 import java.util.Collection;
 import java.util.Vector;
 
-public class UserDB {
-    public static Collection searchItems(String item_group) {
-        Vector v = new Vector();
+public class UserDB extends bo.User {
+    public static UserDB loginAccount(String username, String password){
         try {
             Connection con = DBManager.getConnection();
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("select ProductID, name, price from products");
+            ResultSet rs = st.executeQuery("SELECT UserID, username FROM users WHERE username = " + username + " AND password_hash = " + password);
 
-            while(rs.next()) {
-                int i = rs.getInt("ProductID");
-                String name = rs.getString("name");
-                int price = rs.getInt("price");
-                v.addElement(new ProductDB(i, name, price));
-            }
+            if(rs.next())
+                return new UserDB(rs.getInt("UserID"), username);
         } catch (SQLException e) { e.printStackTrace(); }
-        return v;
+        return null;
     }
 
-    private UserDB(int userid, String username, int price) {
-        super(userid, username, price);
+    private UserDB(int userID, String username) {
+        super(userID, username);
     }
 }
