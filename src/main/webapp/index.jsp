@@ -1,12 +1,8 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<!DOCTYPE html>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <html>
-<head>
-  <title>JSP - Hello World</title>
-</head>
+<head><title>Web-Shop</title></head>
 <body>
-<h1><%= "Hello World!" %></h1>
-<br/>
-<a href="hello-servlet">Hello Servlet</a>
+<h1>Welcome to Web-Shop</h1>
+<p><a href="login.jsp">Login</a> | <a href="register.jsp">Register</a> | <a href="products">View Products</a></p>
 </body>
 </html>
