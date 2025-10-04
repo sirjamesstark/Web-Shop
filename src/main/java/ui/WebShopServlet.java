@@ -4,6 +4,7 @@ import java.io.*;
 
 import bo.UserHandler;
 import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
@@ -14,6 +15,16 @@ public class WebShopServlet extends HttpServlet {
 
     public void init() {
         message = "Hello World!";
+        System.out.println("Hello World!");
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        login(req, resp);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     }
 
     public void login(HttpServletRequest request, HttpServletResponse response) throws IOException {
