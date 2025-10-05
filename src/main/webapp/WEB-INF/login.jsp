@@ -6,15 +6,21 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/style.css">
     </head>
     <body>
-        <h1> Please Sign In </h1>
-        <br/>
-        <div class="login">
-            <form method="post">
-                <input type="hidden" name="action" value="login" />
-                <input type="text" name="username" placeholder="enter username" required="required">
-                <input type="password" name="password" placeholder="**********" required="required">
-                <input type="submit" value="SUBMIT">
-            </form>
+        <header>
+        </header>
+        <div class="container">
+            <div class="login">
+                <h1> Please Sign In </h1>
+                <form method="post">
+                    <input type="hidden" name="action" value="login" />
+                    <input type="text" name="username" placeholder="enter username" required="required">
+                    <input type="password" name="password" placeholder="**********" required="required">
+                    <button type="submit">Sign in</button>
+                </form>
+            </div>
         </div>
+        <footer>
+            <p class="copyright">CoreByte © 2025</p>
+        </footer>
     </body>
 </html>
