@@ -12,12 +12,12 @@ public class Product {
         return ProductDB.searchProducts();
     }
 
-    public Product(String name, int price) {
+    protected Product(String name, int price) {
         this.name = name;
         this.price = price;
     }
 
-    public Product(int productId, String name, int price) {
+    protected Product(int productId, String name, int price) {
         this.productId = productId;
         this.name = name;
         this.price = price;
@@ -29,5 +29,9 @@ public class Product {
 
     public int getPrice() {
         return price;
+    }
+
+    public int getProductID() {
+        return productId;
     }
 }

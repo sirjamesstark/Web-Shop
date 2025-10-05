@@ -8,4 +8,12 @@ public class OrderInfo {
         this.product = product;
         this.quantity = quantity;
     }
+
+    public ProductInfo getProduct() {
+        return product;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
 }

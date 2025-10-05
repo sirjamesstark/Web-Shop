@@ -24,8 +24,12 @@ public class UserHandler {
         ArrayList<OrderInfo> orders = new ArrayList<>();
         for (Iterator it = list.iterator();  it.hasNext(); ) {
             Order order = (Order) it.next();
-            orders.add(new OrderInfo(new ProductInfo(order.getProduct().getName(), order.getProduct().getPrice()), order.getQuantity()));
+            orders.add(new OrderInfo(new ProductInfo(order.getProduct().getName(), order.getProduct().getPrice(), order.getProduct().getProductID()), order.getQuantity()));
         }
         return orders;
+    }
+
+    public static boolean addToCart(int userId, int productId) {
+        return Order.addToCart(userId, productId);
     }
 }

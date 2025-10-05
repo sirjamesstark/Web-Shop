@@ -12,6 +12,10 @@ public class Order {
         return OrderDB.searchOrders(userID);
     }
 
+    public static boolean addToCart(int userId, int productId) {
+        return OrderDB.addOrder(userId, productId);
+    }
+
     protected Order(Product product, int quantity) {
         this.product = product;
         this.quantity = quantity;

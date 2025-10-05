@@ -8,42 +8,71 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
+import javax.swing.*;
 
-@WebServlet(name = "webShop", value = "/web-shop")
+
+@WebServlet(name = "webShop", value = "/")
 public class WebShopServlet extends HttpServlet {
     private String message;
 
     public void init() {
         message = "Hello World!";
-        System.out.println("Hello World!");
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        login(req, resp);
+        String uri = req.getRequestURI();
+        if (uri.endsWith(".css") || uri.endsWith(".js") || uri.endsWith(".png") || uri.endsWith(".jpg")) {
+            req.getServletContext().getNamedDispatcher("default").forward(req, resp);
+            return;
+        }
+        if(req.getSession().getAttribute("user") == null)
+            req.getRequestDispatcher("/WEB-INF/login.jsp").forward(req, resp);
+        else
+            req.getRequestDispatcher("/WEB-INF/index.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    }
-
-    public void login(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        HttpSession session = request.getSession();
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        RequestDispatcher rd = null;
-
         try {
-            UserInfo user = UserHandler.getUser(username, password);
-            if(user != null){
-                rd = request.getRequestDispatcher("/login.jsp");
-                rd.forward(request, response);
-            } else {
-                session.setAttribute("username", username);
-                rd = request.getRequestDispatcher("/index.jsp");
-                rd.forward(request, response);
+            switch(req.getParameter("action")) {
+                case "login":
+                    login(req, resp);
+                    break;
+                case "home":
+                    req.getRequestDispatcher("/WEB-INF/index.jsp").forward(req, resp);
+                    break;
+                case "cart":
+                    req.getRequestDispatcher("/WEB-INF/cart.jsp").forward(req, resp);
+                    break;
+                case "addToCart":
+                    System.out.println("Got cart request");
+                    if(req.getSession().getAttribute("userID") != null && req.getSession().getAttribute("user") != null) {
+                        System.out.println("Attempting to add to cart values " + (int) req.getSession().getAttribute("userID") + " and " + Integer.parseInt(req.getParameter("id")));
+                        if (UserHandler.addToCart((int) req.getSession().getAttribute("userID"), Integer.parseInt(req.getParameter("id"))))
+                            System.out.println("Successfully added to cart");
+                        else
+                            System.out.println("Failed to add to cart");
+                    }
+                    else
+                        login(req, resp);
+                    resp.sendRedirect(req.getContextPath() + "/");
             }
         } catch (Exception e) { e.printStackTrace(); }
+    }
+
+    protected void login(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String username = req.getParameter("username");
+        UserInfo user = UserHandler.getUser(username, req.getParameter("password"));
+        if (user != null) {
+            req.getSession().setAttribute("user", username);
+            req.getSession().setAttribute("userID", user.getUserID());
+            req.getRequestDispatcher("/WEB-INF/index.jsp").forward(req, resp);
+        } else {
+            req.getSession().removeAttribute("user");
+            req.getSession().removeAttribute("userID");
+            req.getRequestDispatcher("/WEB-INF/login.jsp").forward(req, resp);
+        }
     }
 
     public void destroy() {

@@ -12,7 +12,7 @@ public class ProductHandler {
         ArrayList<ProductInfo> products = new ArrayList<>();
         for (Iterator it = list.iterator();  it.hasNext(); ) {
             Product product = (Product) it.next();
-            products.add(new ProductInfo(product.getName(), product.getPrice()));
+            products.add(new ProductInfo(product.getName(), product.getPrice(), product.getProductID()));
         }
         return products;
     }

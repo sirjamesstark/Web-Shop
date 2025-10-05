@@ -35,7 +35,7 @@ public class ProductDB extends bo.Product {
             ResultSet rs = st.executeQuery("SELECT  products.ProductID, products.name, products.price\n" +
                     "FROM products\n" +
                     "JOIN shopping_card ON products.productID = shopping_card.productID\n" +
-                    "WHERE shopping_card.UserID = " + userID);
+                    "WHERE shopping_card.UserID = '" + userID+"'");
 
             while(rs.next()) {
                 int i = rs.getInt("ProductID");

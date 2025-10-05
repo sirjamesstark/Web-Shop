@@ -12,8 +12,7 @@ public class UserDB extends bo.User {
         try {
             Connection con = DBManager.getConnection();
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("SELECT UserID, username FROM users WHERE username = " + username + " AND password_hash = " + password);
-
+            ResultSet rs = st.executeQuery("SELECT UserID, username FROM users WHERE username = '" + username + "' AND password_hash = '" + password+"'");
             if(rs.next())
                 return new UserDB(rs.getInt("UserID"), username);
         } catch (SQLException e) { e.printStackTrace(); }

@@ -11,7 +11,7 @@ public final class DBManager {
     public static Connection getConnection() {
         if( con == null) {
             try {
-                Class.forName("com.mysql.jdbc.Driver").newInstance();
+                Class.forName("com.mysql.cj.jdbc.Driver");
                 con = DriverManager.getConnection("jdbc:mysql://indra0120.tplinkdns.com:3306/shop", "admin", "password");
             } catch (Exception e) { e.printStackTrace(); }
         }

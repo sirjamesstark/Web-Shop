@@ -8,4 +8,8 @@ public class UserInfo {
         this.userID = userID;
         this.name = name;
     }
+
+    public int getUserID() {
+        return userID;
+    }
 }
